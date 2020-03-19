@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyVet.web.Data;
 using MyVet.web.Data.Entities;
+using MyVet.web.Helpers;
 using MyVet.Web.Data;
 using MyVet.Web.Helpers;
 
@@ -57,6 +58,9 @@ namespace MyVet.web
 			services.AddTransient<SeedDb>();
 			//AddScoped: inyecta mas de una vez creando una nueva instancia
 			services.AddScoped<IUserHelper, UserHelper>();
+			services.AddScoped<ICombosHelper, CombosHelper>();
+			services.AddScoped<IConverterHelper, ConverterHelper>();
+			services.AddScoped<IImageHelper, ImageHelper>();
 			//AddScoped: inyecta una vez pero lo deja permanentemente en la ejecuón de vida del proyecto
 			//services.AddSingleton<UserHelper>();
 
