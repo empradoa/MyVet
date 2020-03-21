@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MyVet.web.Data;
 using MyVet.web.Data.Entities;
 using MyVet.web.Helpers;
@@ -48,6 +50,26 @@ namespace MyVet.web
 				cfg.Password.RequireUppercase = false;
 			}).AddEntityFrameworkStores<DataContext>();
 
+			services.AddDbContext<DataContext>(cfg =>
+			{
+				cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+			});
+
+			//Add the new configuration for validate the tokens in Startup class:
+			services.AddAuthentication()
+				.AddCookie()
+				.AddJwtBearer(cfg =>
+				{
+					cfg.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidIssuer = Configuration["Tokens:Issuer"],
+						ValidAudience = Configuration["Tokens:Audience"],
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+					};
+				});
+
+			services.AddTransient<SeedDb>();
+			services.AddScoped<IUserHelper, UserHelper>();
 
 			//agregar una conexión a la base de datos, aqui se configura para que motor de base de datos se quiere adaptar
 			services.AddDbContext<DataContext>(cfg =>
