@@ -60,7 +60,8 @@ namespace MyVet.Web.Helpers
                 model.Username,
                 model.Password,
                 model.RememberMe,
-                false);//false es para no contar el numero de intentos que bloquean la cuentas en caco de que sea true debera ir una funcionalidad para desbloquear
+                false);
+            //false es para no contar el numero de intentos que bloquean la cuentas en caco de que sea true debera ir una funcionalidad para desbloquear
         }
 
         public async Task LogoutAsync()

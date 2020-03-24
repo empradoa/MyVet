@@ -5,6 +5,7 @@ namespace MyVet.Common.Models
     public class OwnerResponse
     {
         public int Id { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -18,5 +19,8 @@ namespace MyVet.Common.Models
         public string Email { get; set; }
 
         public ICollection<PetResponse> Pets { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
+       
     }
 }

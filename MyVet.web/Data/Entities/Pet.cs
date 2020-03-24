@@ -28,10 +28,9 @@ namespace MyVet.Web.Data.Entities
 
         public string Remarks { get; set; }
 
-        //TODO: replace the correct URL for the image
         public string ImageFullPath => string.IsNullOrEmpty(ImageUrl)
             ? null
-            : $"https://TDB.azurewebsites.net{ImageUrl.Substring(1)}";
+            : $"http://empradoa-001-site1.atempurl.com/{ImageUrl.Substring(1)}";
 
         [Display(Name = "Born*")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]

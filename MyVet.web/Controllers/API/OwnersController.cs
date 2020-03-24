@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -8,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyVet.Common.Models;
 using MyVet.web.Data;
+using MyVet.Web.Data;
 
-namespace MyVet.web.Controllers.API
+namespace MyVet.Web.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,16 +17,16 @@ namespace MyVet.web.Controllers.API
     {
         private readonly DataContext _dataContext;
 
-        public OwnersController(DataContext dataContex)
+        public OwnersController(DataContext dataContext)
         {
-            _dataContext = dataContex;
+            _dataContext = dataContext;
         }
 
         [HttpPost]
         [Route("GetOwnerByEmail")]
         public async Task<IActionResult> GetOwner(EmailRequest emailRequest)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -39,7 +38,7 @@ namespace MyVet.web.Controllers.API
                 .Include(o => o.Pets)
                 .ThenInclude(p => p.Histories)
                 .ThenInclude(h => h.ServiceType)
-                .FirstOrDefaultAsync(o => o.User.UserName.ToLower().Equals(emailRequest.Email.ToLower()));
+                .FirstOrDefaultAsync(o => o.User.UserName.ToLower() == emailRequest.Email.ToLower());
 
             var response = new OwnerResponse
             {
