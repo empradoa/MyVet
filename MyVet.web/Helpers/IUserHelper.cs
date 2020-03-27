@@ -27,6 +27,11 @@ namespace MyVet.Web.Helpers
 
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
 
+        //metodo para poder cambiar el password desde la web
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+
+
+
 
     }
 }
