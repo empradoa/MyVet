@@ -5,12 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using MyVet.Common.Models;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 
 namespace MyVet.Common.Services
 {
     public class ApiService : IApiService
     {
-        public async Task<Response> GetTokenAsync(
+        //revisar la conexión a internet
+        public async Task<bool> CheckConnection(string url)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return false;
+            }
+            return await CrossConnectivity.Current.IsRemoteReachable(url);
+        }
+        public async Task<Response<TokenResponse>> GetTokenAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -32,7 +42,7 @@ namespace MyVet.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<TokenResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -41,7 +51,7 @@ namespace MyVet.Common.Services
 
                 //DeserializeObject es coger un string y convertilo es clase o objeto
                 var token = JsonConvert.DeserializeObject<TokenResponse>(result);
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = true,
                     Result = token
@@ -49,7 +59,7 @@ namespace MyVet.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
@@ -57,7 +67,7 @@ namespace MyVet.Common.Services
             }
         }
 
-        public async Task<Response> GetOwnerByEmailAsync(
+        public async Task<Response<OwnerResponse>> GetOwnerByEmailAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -82,7 +92,7 @@ namespace MyVet.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<OwnerResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -90,7 +100,7 @@ namespace MyVet.Common.Services
                 }
 
                 var owner = JsonConvert.DeserializeObject<OwnerResponse>(result);
-                return new Response
+                return new Response<OwnerResponse>
                 {
                     IsSuccess = true,
                     Result = owner
@@ -98,7 +108,7 @@ namespace MyVet.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<OwnerResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
