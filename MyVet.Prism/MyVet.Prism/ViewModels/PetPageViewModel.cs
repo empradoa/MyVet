@@ -24,7 +24,7 @@ namespace MyVet.Prism.ViewModels
         }
 
         /// <summary>
-        /// Funciona rama
+        /// Funciona rama por fin
         /// </summary>
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
