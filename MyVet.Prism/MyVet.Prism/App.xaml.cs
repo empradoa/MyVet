@@ -18,6 +18,8 @@ namespace MyVet.Prism
 
         protected override async void OnInitialized()
         {
+            //Agregamos licencia de https://www.syncfusion.com/account/manage-trials/downloads que expira en un mes 27/03/2020 al 27/04/2020
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjI4NDAxQDMxMzcyZTM0MmUzMFBxU0lZZUFzOFNqdkhBbGZKMDJLaHBxTVBKV0RsZ0Z3YWp2QlgrMVhtVlU9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
