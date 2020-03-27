@@ -23,6 +23,9 @@ namespace MyVet.Prism.ViewModels
             set => SetProperty(ref _pet, value);
         }
 
+        /// <summary>
+        /// Funciona
+        /// </summary>
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
