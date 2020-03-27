@@ -106,5 +106,11 @@ namespace MyVet.Web.Controllers
             return BadRequest();
         }
 
+        public IActionResult NotAuthorized()
+        {
+            return View();
+        }
+
+
     }
 }
