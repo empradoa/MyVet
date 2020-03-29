@@ -96,6 +96,8 @@ namespace MyVet.web
 			services.AddScoped<IMailHelper, MailHelper>();
 			//AddScoped: inyecta una vez pero lo deja permanentemente en la ejecuón de vida del proyecto
 			//services.AddSingleton<UserHelper>();
+			services.AddScoped<IAgendaHelper, AgendaHelper>();
+
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
