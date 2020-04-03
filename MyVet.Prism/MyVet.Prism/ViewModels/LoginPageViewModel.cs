@@ -17,6 +17,7 @@ namespace MyVet.Prism.ViewModels
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
         private DelegateCommand _registerCommand;
+        private DelegateCommand _forgotPasswordCommand;
 
         public LoginPageViewModel(INavigationService navigationService,
             IApiService apiService) : base(navigationService)
@@ -36,6 +37,8 @@ namespace MyVet.Prism.ViewModels
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
 
         public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
+
+        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPassword));
 
         public bool IsRemember { get; set; }
 
@@ -118,8 +121,8 @@ namespace MyVet.Prism.ViewModels
 
             Settings.Owner = JsonConvert.SerializeObject(owner);
             Settings.Token = JsonConvert.SerializeObject(token);
+            Settings.IsRemembered = IsRemember;
 
-                 
             IsRunning = false;
             IsEnabled = true;
 
@@ -134,5 +137,10 @@ namespace MyVet.Prism.ViewModels
             await _navigationService.NavigateAsync("RegisterPage");
         }
 
+        //recuperar clave
+        private async void ForgotPassword()
+        {
+            await _navigationService.NavigateAsync("RememberPasswordPage");
+        }
     }
 }
