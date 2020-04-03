@@ -1,5 +1,6 @@
 ﻿using MyVet.Common.Helpers;
 using MyVet.Common.Models;
+using MyVet.Common.Services;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,21 +14,28 @@ namespace MyVet.Prism.ViewModels
 {
     public class ProfilePageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
+        private readonly IApiService _apiService;
         private bool _isRunning;
         private bool _isEnabled;
         private OwnerResponse _owner;
         private DelegateCommand _saveCommand;
+        private DelegateCommand _changePasswordCommand;
 
         public ProfilePageViewModel(
-            INavigationService navigationService) : base(navigationService)
+            INavigationService navigationService,
+            IApiService apiService) : base(navigationService)
         {
+            _navigationService = navigationService;
+            _apiService = apiService;
             Title = "Profile Page";
             IsEnabled = true;
             Owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
-
         }
 
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save));
+
+        public DelegateCommand ChangePasswordCommand => _changePasswordCommand ?? (_changePasswordCommand = new DelegateCommand(ChangePassword));
 
         public OwnerResponse Owner
         {
@@ -54,6 +62,49 @@ namespace MyVet.Prism.ViewModels
             {
                 return;
             }
+            IsRunning = true;
+            IsEnabled = false;
+
+            var userRequest = new UserRequest
+            {
+                Address = Owner.Address,
+                Document = Owner.Document,
+                Email = Owner.Email,
+                FirstName = Owner.FirstName,
+                LastName = Owner.LastName,
+                Password = "123456", // It doesn't matter what is sent here. It is only for the model to be valid
+                Phone = Owner.PhoneNumber
+            };
+
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var response = await _apiService.PutAsync(
+                url,
+                "/api",
+                "/Account",
+                userRequest,
+                "bearer",
+                token.Token);
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+            Settings.Owner = JsonConvert.SerializeObject(Owner);
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                "User updated succesfully",
+                "Accept");
         }
 
         private async Task<bool> ValidateData()
@@ -87,6 +138,11 @@ namespace MyVet.Prism.ViewModels
             }
 
             return true;
+        }
+
+        private async void ChangePassword()
+        {
+            await _navigationService.NavigateAsync("ChangePasswordPage");
         }
     }
 }
