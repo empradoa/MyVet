@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
+using MyVet.Common.Helpers;
+using MyVet.Common.Models;
 using MyVet.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -50,6 +53,48 @@ namespace MyVet.Prism.ViewModels
             {
                 return;
             }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            var owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
+            var request = new ChangePasswordRequest
+            {
+                Email = owner.Email,
+                NewPassword = NewPassword,
+                OldPassword = CurrentPassword
+            };
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var response = await _apiService.ChangePasswordAsync(
+                url,
+                "/api",
+                "/Account/ChangePassword",
+                request,
+                "bearer",
+                token.Token);
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+            await App.Current.MainPage.DisplayAlert(
+                "Ok",
+                response.Message,
+                "Accept");
+
+            await _navigationService.GoBackAsync();
+
         }
 
         private async Task<bool> ValidateData()
