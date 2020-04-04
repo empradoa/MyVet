@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.EditPet"
@@ -16,18 +17,24 @@
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All">
 
-                    <Image
-            	HeightRequest="150"
-            	Source="{Binding ImageSource}">
-                        <Image.GestureRecognizers>
+                    <ffimageloading:CachedImage
+                    Aspect="AspectFit"
+	                Grid.Column="0"
+	                Source="{Binding ImageSource}"
+	                LoadingPlaceholder= "LoaderImage"
+	                ErrorPlaceholder= "ErrorImage"
+	                CacheDuration= "50"
+	                RetryCount= "3"
+	                RetryDelay= "600"
+	                DownsampleToViewSize = "true">
+                        <ffimageloading:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                    </ffimageloading:CachedImage>
                     <Label
-            	FontSize="Micro"
-            	HorizontalOptions="Center"
-            	Text="Tap on image to change it."/>
+            	        FontSize="Micro"
+            	        HorizontalOptions="Center"
+            	        Text="Tap on image to change it."/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -43,74 +50,74 @@
                         </Grid.RowDefinitions>
 
                         <Label
-                	Grid.Column="0"
-                	Grid.Row="0"
-                	Text="Name"
-                	VerticalOptions="Center"/>
+                	        Grid.Column="0"
+                	        Grid.Row="0"
+                	        Text="Name"
+                	        VerticalOptions="Center"/>
                         <Entry
-                	Grid.Column="1"
-                	Grid.Row="0"
-                	Placeholder="Enter the pet's name..."
-                	Text="{Binding Pet.Name}"/>
+                	        Grid.Column="1"
+                	        Grid.Row="0"
+                	        Placeholder="Enter the pet's name..."
+                	        Text="{Binding Pet.Name}"/>
 
                         <Label
-                	Grid.Column="0"
-                	Grid.Row="1"
-                	Text="Race"
-                	VerticalOptions="Center"/>
+                	        Grid.Column="0"
+                	        Grid.Row="1"
+                	        Text="Race"
+                	        VerticalOptions="Center"/>
                         <Entry
-                	Grid.Column="1"
-                	Grid.Row="1"
-                	Placeholder="Enter the pet's race..."
-                	Text="{Binding Pet.Race}"/>
+                	        Grid.Column="1"
+                	        Grid.Row="1"
+                	        Placeholder="Enter the pet's race..."
+                	        Text="{Binding Pet.Race}"/>
 
                         <Label
-                	Grid.Column="0"
-                	Grid.Row="2"
-                	Text="PetType"
-                	VerticalOptions="Center"/>
+                	        Grid.Column="0"
+                	        Grid.Row="2"
+                	        Text="PetType"
+                	        VerticalOptions="Center"/>
                         <Picker
-                	Grid.Column="1"
-                	Grid.Row="2"
-                	ItemDisplayBinding="{Binding Name}"
-                	ItemsSource="{Binding PetTypes}"
-                	SelectedItem="{Binding PetType}"
-                	Title="Seleccione a pet type"/>
+                	        Grid.Column="1"
+                	        Grid.Row="2"
+                	        ItemDisplayBinding="{Binding Name}"
+                	        ItemsSource="{Binding PetTypes}"
+                	        SelectedItem="{Binding PetType}"
+                	        Title="Seleccione a pet type"/>
 
                         <Label
-                	Grid.Column="0"
-                	Grid.Row="3"
-                	Text="Born"
-                	VerticalOptions="Center"/>
+                	        Grid.Column="0"
+                	        Grid.Row="3"
+                	        Text="Born"
+                	        VerticalOptions="Center"/>
                         <DatePicker
-                	Grid.Column="1"
-                	Grid.Row="3"
-                	Date="{Binding Pet.Born}"/>
+                	        Grid.Column="1"
+                	        Grid.Row="3"
+                	        Date="{Binding Pet.Born}"/>
 
                         <Label
-                	Grid.Column="0"
-                	Grid.Row="4"
-                	Text="Remarks"
-                	VerticalOptions="Center"/>
+                	        Grid.Column="0"
+                	        Grid.Row="4"
+                	        Text="Remarks"
+                	        VerticalOptions="Center"/>
                         <Editor
-                	Grid.Column="1"
-                	Grid.Row="4"
-                	HeightRequest="80"
-                	Text="{Binding Pet.Remarks}"/>
+                	        Grid.Column="1"
+                	        Grid.Row="4"
+                	        HeightRequest="80"
+                	        Text="{Binding Pet.Remarks}"/>
                     </Grid>
                 </StackLayout>
                 <busyindicator:SfBusyIndicator  
-                AnimationType="Box"
-                AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
-                AbsoluteLayout.LayoutFlags="All"
-                BackgroundColor="{StaticResource colorDanger}"
-                HorizontalOptions="Center"
-                TextColor="{StaticResource colorFontInverse}"
-                IsVisible="{Binding IsRunning}"
-                Title="Saving..."
-                VerticalOptions="Center"
-                ViewBoxWidth="80"
-                ViewBoxHeight="80" />
+                            AnimationType="Box"
+                            AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                            AbsoluteLayout.LayoutFlags="All"
+                            BackgroundColor="{StaticResource colorDanger}"
+                            HorizontalOptions="Center"
+                            TextColor="{StaticResource colorFontInverse}"
+                            IsVisible="{Binding IsRunning}"
+                            Title="Saving..."
+                            VerticalOptions="Center"
+                            ViewBoxWidth="80"
+                            ViewBoxHeight="80" />
             </AbsoluteLayout>
         </ScrollView>
         <StackLayout
