@@ -132,7 +132,7 @@ namespace MyVet.Prism.ViewModels
 
             if (!response.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Getting the pet types list, please try later", "Accept");
+                await App.Current.MainPage.DisplayAlert("Error", "Getting the pet types list, please try laters", "Accept");
 
                 await _navigationService.GoBackAsync();
                 return;
