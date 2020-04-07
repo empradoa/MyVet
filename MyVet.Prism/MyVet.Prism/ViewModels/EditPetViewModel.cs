@@ -156,8 +156,8 @@ namespace MyVet.Prism.ViewModels
                 "Where do you want to get the picture from?",
                 "Cancel",
                 null,
-                "From Gallery",
-                "From Camera");
+                "Gallery",
+                "Camera");
 
             if (source == "Cancel")
             {
@@ -165,7 +165,7 @@ namespace MyVet.Prism.ViewModels
                 return;
             }
 
-            if (source == "From Camera")
+            if (source == "Camera")
             {
                 _file = await CrossMedia.Current.TakePhotoAsync(
                     new StoreCameraMediaOptions
