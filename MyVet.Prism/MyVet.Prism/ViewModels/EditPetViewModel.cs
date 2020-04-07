@@ -2,6 +2,8 @@
 using MyVet.Common.Models;
 using MyVet.Common.Services;
 using Newtonsoft.Json;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -25,6 +27,8 @@ namespace MyVet.Prism.ViewModels
 
         private ObservableCollection<PetTypeResponse> _petTypes;
         private PetTypeResponse _petType;
+        private MediaFile _file;
+        private DelegateCommand _changeImageCommand;
 
         public EditPetViewModel(
             INavigationService navigationService,
@@ -34,6 +38,8 @@ namespace MyVet.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
         }
+
+        public DelegateCommand ChangeImageCommand => _changeImageCommand ?? (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
 
         public ObservableCollection<PetTypeResponse> PetTypes
         {
@@ -140,6 +146,49 @@ namespace MyVet.Prism.ViewModels
                 PetType = PetTypes.FirstOrDefault(pt => pt.Name == Pet.PetType);
             }
 
+        }
+
+        private async void ChangeImageAsync()
+        {
+            await CrossMedia.Current.Initialize();
+
+            var source = await Application.Current.MainPage.DisplayActionSheet(
+                "Where do you want to get the picture from?",
+                "Cancel",
+                null,
+                "From Gallery",
+                "From Camera");
+
+            if (source == "Cancel")
+            {
+                _file = null;
+                return;
+            }
+
+            if (source == "From Camera")
+            {
+                _file = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions
+                    {
+                        Directory = "Sample",
+                        Name = "test.jpg",
+                        PhotoSize = PhotoSize.Small,
+                    }
+                );
+            }
+            else
+            {
+                _file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (_file != null)
+            {
+                this.ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = _file.GetStream();
+                    return stream;
+                });
+            }
         }
     }
 }
