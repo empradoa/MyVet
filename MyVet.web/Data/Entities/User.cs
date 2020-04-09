@@ -27,6 +27,12 @@ namespace MyVet.web.Data.Entities
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
         public string Address { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        public double Longitude { get; set; }
+
         [Display(Name = "Full Name")]
         public string FullName => $"{FirstName} {LastName}";
 
