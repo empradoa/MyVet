@@ -66,6 +66,7 @@ namespace MyVet.web.Controllers
                 .Include(o => o.Pets)
                 .ThenInclude(p => p.Histories) //Relacionar otra tabla de segundo orden
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (owner == null)
             {
                 return NotFound();

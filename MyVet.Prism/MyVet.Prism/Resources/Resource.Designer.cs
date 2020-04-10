@@ -70,11 +70,92 @@ namespace MyVet.Prism.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The pet can&apos;t be deleted because it has history..
+        /// </summary>
+        internal static string BadRequestDeletePet {
+            get {
+                return ResourceManager.GetString("BadRequestDeletePet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pet&apos;s born.
+        /// </summary>
+        internal static string Born {
+            get {
+                return ResourceManager.GetString("Born", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tap on image to change it..
+        /// </summary>
+        internal static string ChangeImage {
+            get {
+                return ResourceManager.GetString("ChangeImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Check the internet connection.
         /// </summary>
         internal static string CheckInternet {
             get {
                 return ResourceManager.GetString("CheckInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Created.
+        /// </summary>
+        internal static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a The pet was {0} sucessfullty.
+        /// </summary>
+        internal static string CreateEditPetConfirm {
+            get {
+                return ResourceManager.GetString("CreateEditPetConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Edited.
+        /// </summary>
+        internal static string Edited {
+            get {
+                return ResourceManager.GetString("Edited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Edit Pet.
+        /// </summary>
+        internal static string EditPet {
+            get {
+                return ResourceManager.GetString("EditPet", resourceCulture);
             }
         }
         
@@ -151,6 +232,51 @@ namespace MyVet.Prism.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Name.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must enter the pet&apos;s name..
+        /// </summary>
+        internal static string NameError {
+            get {
+                return ResourceManager.GetString("NameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter the pet&apos;s name....
+        /// </summary>
+        internal static string NamePlaceHolder {
+            get {
+                return ResourceManager.GetString("NamePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ok.
+        /// </summary>
+        internal static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Password.
         /// </summary>
         internal static string Password {
@@ -178,6 +304,69 @@ namespace MyVet.Prism.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Pet Type.
+        /// </summary>
+        internal static string PetType {
+            get {
+                return ResourceManager.GetString("PetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must select a pet type..
+        /// </summary>
+        internal static string PetTypeError {
+            get {
+                return ResourceManager.GetString("PetTypeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Select the pet type....
+        /// </summary>
+        internal static string PetTypePlaceHolder {
+            get {
+                return ResourceManager.GetString("PetTypePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure to delete the pet?.
+        /// </summary>
+        internal static string QuestionToDeletePet {
+            get {
+                return ResourceManager.GetString("QuestionToDeletePet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Breed.
+        /// </summary>
+        internal static string Race {
+            get {
+                return ResourceManager.GetString("Race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must enter the pet&apos;s breed..
+        /// </summary>
+        internal static string RaceError {
+            get {
+                return ResourceManager.GetString("RaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter the pet&apos;s breed....
+        /// </summary>
+        internal static string RacePlaceHolder {
+            get {
+                return ResourceManager.GetString("RacePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Register.
         /// </summary>
         internal static string Register {
@@ -187,11 +376,47 @@ namespace MyVet.Prism.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Remarks.
+        /// </summary>
+        internal static string Remarks {
+            get {
+                return ResourceManager.GetString("Remarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Remember me in this device.
         /// </summary>
         internal static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Saving....
+        /// </summary>
+        internal static string Saving {
+            get {
+                return ResourceManager.GetString("Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
